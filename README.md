@@ -26,6 +26,7 @@
 ## Features
 
     ✅ AI-powered project creation from natural language prompts
+    ✅ Multiple AI providers: OpenAI, Anthropic Claude, Google Gemini, OpenRouter
     ✅ Containerized Next.js applications with Docker
     ✅ Live preview with mobile and desktop views
     ✅ Full-featured Monaco code editor with file management
@@ -48,20 +49,68 @@
    git clone https://github.com/ntegrals/december
    ```
 
-2. Get an API Key from any OpenAI sdk compatible provider (e.g. OpenAI, Claude, Ollama, OpenRouter, etc.) and set it in the `config.ts` file.
+2. Get an API Key from any supported AI provider and set it in the `config.ts` file.
+
+   **Supported AI Providers:**
+   - **OpenAI** - Get API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+   - **Anthropic Claude** - Get API key from [Anthropic Console](https://console.anthropic.com/) (Recommended)
+   - **Google Gemini** - Get API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+   - **OpenRouter** - Get API key from [OpenRouter](https://openrouter.ai/keys) (Access to multiple models)
 
    The start.sh script will automatically copy over the file into the backend folder.
 
-   I highly recommend using Sonnet-4 from Anthropic as it is the best coding model available right now.
+   **Example configurations:**
 
-   ```sh
-    baseUrl: "https://openrouter.ai/api/v1",
+   **For Anthropic Claude (Recommended):**
+   ```typescript
+   export const config = {
+     aiSdk: {
+       provider: "anthropic",
+       baseUrl: "", // Leave empty for official API
+       apiKey: "sk-ant-api03-...", // Your Anthropic API key
+       model: "claude-3-5-sonnet-20241022",
+       temperature: 0.7,
+     },
+   } as const;
+   ```
 
-    apiKey:
-      "sk-...",
+   **For Google Gemini:**
+   ```typescript
+   export const config = {
+     aiSdk: {
+       provider: "gemini",
+       baseUrl: "", // Leave empty for official API
+       apiKey: "AIza...", // Your Google AI API key
+       model: "gemini-1.5-pro",
+       temperature: 0.7,
+     },
+   } as const;
+   ```
 
-    model: "anthropic/claude-sonnet-4",
-    temperature: 0.7,
+   **For OpenAI:**
+   ```typescript
+   export const config = {
+     aiSdk: {
+       provider: "openai",
+       baseUrl: "", // Leave empty for official API
+       apiKey: "sk-...", // Your OpenAI API key
+       model: "gpt-4",
+       temperature: 0.7,
+     },
+   } as const;
+   ```
+
+   **For OpenRouter (Multiple Models):**
+   ```typescript
+   export const config = {
+     aiSdk: {
+       provider: "openrouter",
+       baseUrl: "https://openrouter.ai/api/v1",
+       apiKey: "sk-or-v1-...", // Your OpenRouter API key
+       model: "anthropic/claude-3-5-sonnet",
+       temperature: 0.7,
+     },
+   } as const;
    ```
 
 3. Install docker (Docker Desktop is the easiest way to get started)
@@ -168,6 +217,17 @@ npm install
 npm run dev
 ```
 
+## AI Provider Comparison
+
+| Provider | Strengths | Best For | Cost |
+|----------|-----------|----------|------|
+| **Anthropic Claude** | Best coding capabilities, excellent reasoning | Complex development tasks | $$$ |
+| **Google Gemini** | Fast, good multimodal support, cost-effective | General development, image analysis | $$ |
+| **OpenAI GPT-4** | Well-rounded, extensive ecosystem | General purpose, established workflows | $$$ |
+| **OpenRouter** | Access to multiple models, competitive pricing | Experimenting with different models | $ - $$$ |
+
+**Recommendation:** Start with **Anthropic Claude 3.5 Sonnet** for the best coding experience, or **Google Gemini 1.5 Pro** for a cost-effective alternative.
+
 <!-- ## Demo
 
 You can test the December here: [https://december.ai](https://december.ai) -->
@@ -185,10 +245,11 @@ I would love for this repo to become the go-to place for people who want to run 
 Building applications shouldn't require expensive subscriptions or sacrificing your privacy. December gives you the power of platforms like Loveable, Replit, and Bolt without the downsides:
 
 - **Full Control & Privacy** - Your code, ideas, and projects never leave your machine. No cloud storage, no data mining, no vendor lock-in
-- **Your API Keys, Your Costs** - Use your own OpenAI API key and pay only for what you use. No monthly subscriptions or usage limits imposed by third parties
+- **Your API Keys, Your Costs** - Use your own AI API key and pay only for what you use. No monthly subscriptions or usage limits imposed by third parties
 - **Complete Feature Access** - No paywalls, premium tiers, or artificial limitations. Every feature is available from day one
+- **Multiple AI Providers** - Choose from OpenAI, Anthropic, Google Gemini, or OpenRouter based on your needs and budget
 
-Most cloud-based AI development platforms charge $20-100+ per month while limiting your usage and storing your intellectual property on their servers. With December, a $5 OpenAI API credit can generate dozens of complete applications, and you keep full ownership of everything you create.
+Most cloud-based AI development platforms charge $20-100+ per month while limiting your usage and storing your intellectual property on their servers. With December, a $5 API credit can generate dozens of complete applications, and you keep full ownership of everything you create.
 
 The local-first approach means you can work offline, modify the platform itself, and never worry about service outages or policy changes affecting your projects. Your development environment evolves with your needs, not a company's business model.
 
