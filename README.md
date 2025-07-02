@@ -72,10 +72,38 @@
 
    Make sure you have Docker running and the Docker CLI installed before proceeding.
 
-4. Run the start script to set up the environment
+4. Install dependencies
 
+   **Option A: Using the start script (recommended)**
    ```sh
    sh start.sh
+   ```
+
+   **Option B: Manual setup**
+   
+   Install backend dependencies:
+   ```sh
+   cd backend
+   npm install
+   cd ..
+   ```
+   
+   Install frontend dependencies:
+   ```sh
+   cd frontend
+   npm install
+   cd ..
+   ```
+   
+   Copy config file and start servers:
+   ```sh
+   cp config.ts backend/config.ts
+   
+   # Start backend (in one terminal)
+   cd backend && npm run dev
+   
+   # Start frontend (in another terminal)
+   cd frontend && npm run dev
    ```
 
 5. The application will start in development mode, and you can access it at [http://localhost:3000](http://localhost:3000).
@@ -83,6 +111,62 @@
    The backend will run on port 4000, and the frontend will run on port 3000.
 
    You can now start building your applications with December! 🥳
+
+## Alternative Package Managers
+
+December supports multiple package managers:
+
+### Using Bun (fastest)
+```sh
+# Install Bun first: https://bun.sh/
+cd backend && bun install
+cd frontend && bun install
+
+# Run with start script
+sh start.sh
+```
+
+### Using npm (most compatible)
+```sh
+cd backend && npm install
+cd frontend && npm install
+
+# Run with start script
+sh start.sh
+```
+
+### Using yarn
+```sh
+cd backend && yarn install
+cd frontend && yarn install
+
+# Update start.sh to use yarn instead of npm
+```
+
+### Using pnpm
+```sh
+cd backend && pnpm install
+cd frontend && pnpm install
+
+# Update start.sh to use pnpm instead of npm
+```
+
+## Running Individual Components
+
+### Backend only
+```sh
+cd backend
+npm install
+cp ../config.ts ./config.ts
+npm run dev
+```
+
+### Frontend only
+```sh
+cd frontend
+npm install
+npm run dev
+```
 
 <!-- ## Demo
 
